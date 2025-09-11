@@ -1,509 +1,828 @@
 
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <meta property="og:title" content="Te Amo muchísimo mi reina ">
-    <title>Te Amo muchísimo mi reina </title>
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="icon" type="image/png" href="./assets/ico_logo.png" sizes="16x16">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+Arabic:wght@300;400;500;700&family=Noto+Sans+Devanagari:wght@300;400;500;700&family=Noto+Sans+Hebrew:wght@300;400;500;700&family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="/es/PagMemoriCorazon/assets/style.css" rel="stylesheet">
-    <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js",
-        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/"
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Una Sorpresa Especial</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@600;700&family=Poppins:wght@500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/3b3b5f9a1a.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    </script>
-    <style>
-        .text-white {
-            color: white !important;
-        }
 
-        .btn-fullscreen-toggle {
-            background-color: rgba(255, 105, 180, 0.3);
-            border: 1px solid rgba(255, 105, 180, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 10px;
-            transition: all 0.3s ease;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef, #a8edea, #d2dcff);
+      background-size: 600% 600%;
+      animation: gradientBG 20s ease infinite;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.8s ease, color 0.5s ease;
+    }
 
-        .btn-fullscreen-toggle:hover {
-            background-color: rgba(255, 105, 180, 0.6);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
-        }
+    body.dark {
+      background: linear-gradient(135deg, #1e3c72, #2a5298, #0f1f3a, #0a0a1a);
+      color: #fff;
+    }
 
-        body.portrait-mode #landscape-warning {
-            display: flex;
-            opacity: 1;
-        }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        /* ---- MÀN HÌNH CẢNH BÁO XOAY NGANG ---- */
-        #landscape-warning {
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, #1c1a3a 0%, #0c0a1f 100%);
-            color: #e0eaff;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        body.portrait #landscape-warning {
-            display: flex;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #landscape-warning .warning-content {
-            position: relative;
-            z-index: 2;
-            padding: 2rem 2.5rem;
-            border-radius: 20px;
-            background: rgba(28, 26, 58, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(173, 216, 230, 0.3);
-            box-shadow:
-                0 0 40px rgba(78, 88, 216, 0.5),
-                0 0 15px rgba(255, 255, 255, 0.1),
-                inset 0 0 8px rgba(173, 216, 230, 0.2);
-            transform: scale(0.95);
-            opacity: 0;
-            animation: fadeInContent 0.6s 0.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-        }
-
-        @keyframes fadeInContent {
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        #landscape-warning h1 {
-            font-family: 'Orbitron', 'Montserrat', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1.5px;
-            color: #ffffff;
-            text-shadow: 0 0 12px rgba(230, 230, 255, 0.8), 0 0 4px rgba(255, 255, 255, 1);
-        }
-
-        #landscape-warning h1:nth-of-type(2) {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
-        }
-
-        #landscape-warning p {
-            font-size: 1.1rem;
-            color: #c0c8ff;
-            line-height: 1.5;
-            text-shadow: 0 0 6px rgba(192, 200, 255, 0.7);
-        }
-
-        #landscape-warning p:last-of-type {
-            margin-top: 1rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        #landscape-warning .stars-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            pointer-events: none;
-            background: transparent;
-            overflow: hidden;
-        }
-
-        #landscape-warning .stars-bg::before,
-        #landscape-warning .stars-bg::after {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background-image:
-                radial-gradient(circle, #fff 1px, transparent 1px),
-                radial-gradient(circle, #c0c8ff 1px, transparent 1px),
-                radial-gradient(circle, #fff 0.5px, transparent 0.5px);
-            background-size: 100px 100px, 150px 150px, 60px 60px;
-            background-position: 0 0, 50px 50px, 30px 30px;
-            opacity: 0;
-            animation: stars-move 30s linear infinite, fadeInStars 1s ease-out forwards;
-        }
-
-        #landscape-warning .stars-bg::after {
-            background-size: 150px 150px, 80px 80px, 120px 120px;
-            background-position: 75px 75px, 40px 40px, 10px 10px;
-            animation-duration: 45s;
-        }
-
-        @keyframes fadeInStars {
-            to {
-                opacity: 0.6;
-            }
-        }
-
-        @keyframes stars-move {
-            from {
-                transform: translateY(0);
-            }
-
-            to {
-                transform: translateY(-50%);
-            }
-        }
-
-        #romantic-title {
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%);
-            color: #ffffff;
-            font-size: 2.5rem;
-            font-family: 'Noto Sans', cursive;
-            text-align: center;
-            max-width: 60%;
-            line-height: 1.2;
-            word-wrap: break-word;
-            text-shadow: 0 0 15px #ff69b4, 0 0 5px #ffffff;
-            animation: glow 2s ease-in-out infinite alternate;
-            padding: 0 10px;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #ff69b4, 0 0 5px #ffffff;
-            }
-            to {
-                text-shadow: 0 0 20px #ff69b4, 0 0 10px #ffffff;
-            }
-        }
-
-        @media (max-width: 600px) {
-            #romantic-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        .music-control {
+    /* ===== PANTALLA DE INICIO ===== */
+    #start-screen {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background: white;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
+      z-index: 1000;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.6s ease;
     }
 
-    .music-btn {
+    .dark #start-screen {
+      background: #0a0a1a;
+    }
+
+    #start-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #e91e63;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(233, 30, 99, 0.4);
+    }
+
+    .dark #start-title {
+      color: #ff80ab;
+      text-shadow: 0 0 20px rgba(255, 100, 180, 0.6);
+    }
+
+    #countdown {
+      font-family: 'Dancing Script', cursive;
+      font-size: 10rem;
+      color: #e91e63;
+      text-shadow: 0 0 25px rgba(255, 0, 100, 0.5);
+      margin: 10px 0;
+    }
+
+    .dark #countdown {
+      color: #ff80ab;
+      text-shadow: 0 0 30px rgba(255, 100, 180, 0.7);
+    }
+
+    #instruction-start {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem;
+      color: #555;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .dark #instruction-start {
+      color: #ddd;
+    }
+
+    .start-footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      font-style: italic;
+    }
+
+    .dark .start-footer {
+      color: #aaa;
+    }
+
+    .start-footer a {
+      color: #e91e63;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-personalizar {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    }
+
+    .dark .btn-personalizar {
+      background: #ff4081;
+    }
+
+    /* ===== MENÚ HAMBURGUESA ===== */
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      cursor: pointer;
       width: 50px;
       height: 50px;
-      background: linear-gradient(135deg, #ff4d6d, #e6395c);
-      border: none;
-      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menu-line {
+      display: block;
+      width: 30px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .dark .menu-line {
+      background: #fff;
+    }
+
+    .menu-btn:hover .menu-line {
+      background: #e91e63;
+    }
+
+    .menu-btn.active .menu-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-btn.active .menu-line:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-btn.active .menu-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Menú desplegable */
+    .menu {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 260px;
+      padding: 15px;
+      z-index: 99;
+      display: none;
+    }
+
+    .dark .menu {
+      background: rgba(30, 30, 50, 0.95);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .menu-item {
+      padding: 12px 15px;
+      font-size: 1rem;
       cursor: pointer;
+      color: #333;
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
+      gap: 10px;
+      transition: background 0.3s;
+      border-radius: 8px;
+      margin: 3px 0;
     }
 
-    .music-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.6);
+    .dark .menu-item {
+      color: #ddd;
     }
 
-    .music-btn:active {
-      transform: scale(0.95);
+    .menu-item:hover {
+      background: #ffebee;
     }
 
-    .music-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: #fff;
+    .dark .menu-item:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    .volume-control {
-      width: 120px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 77, 109, 0.5);
-      margin-top: 10px;
+    .menu-item i {
+      font-size: 1.2rem;
+    }
+
+    /* ===== TARJETA PRINCIPAL ===== */
+    #card {
       display: none;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      width: 420px;
+      max-width: 90vw;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      text-align: center;
+      z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
 
-    .volume-control.visible {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
+    .dark #card {
+      background: rgba(30, 30, 50, 0.9);
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
 
-    .volume-control input {
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5rem;
+      color: #e91e63;
+      margin: 0 0 15px 0;
+      text-shadow: 2px 2px 10px rgba(255, 0, 100, 0.3);
+    }
+
+    .dark h1 {
+      color: #ff80ab;
+    }
+
+    .subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: #d81b60;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .dark .subtitle {
+      color: #ff80ab;
+    }
+
+    .instruction-card {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: #e91e63;
+      font-size: 1.2rem;
+      margin: 20px 0;
+      padding: 12px;
+      background: rgba(255, 235, 235, 0.6);
+      border-radius: 15px;
+      border: 2px dashed #ffcdd2;
+    }
+
+    .dark .instruction-card {
+      background: rgba(233, 30, 99, 0.2);
+      color: #ff80ab;
+      border-color: #e91e63;
+    }
+
+    .message-container {
+      min-height: 100px;
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 20px 0;
+      text-align: left;
+      padding: 15px;
+      background: rgba(255, 248, 248, 0.7);
+      border-radius: 12px;
+      border-left: 5px solid #ec407a;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .dark .message-container {
+      background: rgba(255, 255, 255, 0.1);
+      color: #eee;
+    }
+
+    .gif-container {
+      margin: 20px auto;
+      width: 260px;
+      height: 340px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border: 3px solid #e91e63;
+    }
+
+    .dark .gif-container {
+      border-color: #ff4081;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .gif-container img {
       width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      outline: none;
-      cursor: pointer;
-      -webkit-appearance: none;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .volume-control input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #ff4d6d;
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .volume-control input::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: #ff4d6d;
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    .btn-read-letter {
+      margin: 15px auto;
+      padding: 12px 24px;
+      background: #e91e63;
+      color: white;
       border: none;
+      border-radius: 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
     }
 
-    /* Mobile adjustments */
-    @media only screen and (max-width: 768px) {
-      .music-control {
-        right: 15px;
-      }
-
-      .music-btn {
-        width: 35px;
-        height: 35px;
-      }
-
-      .music-btn svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      .volume-control {
-        width: 100px;
-        margin-top: 8px;
-      }
-
-      .volume-control input {
-        height: 10px;
-      }
-
-      .volume-control input::-webkit-slider-thumb {
-        width: 18px;
-        height: 18px;
-      }
-
-      .volume-control input::-moz-range-thumb {
-        width: 18px;
-        height: 18px;
-      }
+    .dark .btn-read-letter {
+      background: #ff4081;
     }
-    </style>
+
+    .cake {
+      font-size: 0;
+      opacity: 0;
+      transition: all 2s ease;
+      margin: 25px auto 10px;
+    }
+
+    .cake.show {
+      font-size: 5rem;
+      opacity: 1;
+    }
+
+    /* Globos */
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #e91e63;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      animation: float-balloon linear infinite;
+      z-index: 5;
+    }
+
+    @keyframes float-balloon {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-200px); }
+    }
+
+    /* Mensaje al reventar */
+    .floating-msg {
+      position: absolute;
+      background: white;
+      color: #e91e63;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      z-index: 300;
+      opacity: 0;
+      animation: rise-msg 3.5s ease-out forwards;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    @keyframes rise-msg {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+
+    /* ===== EXPLOSIÓN DE CORAZONES AL TOCAR ===== */
+    .heart-explosion {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      animation: expand-heart 0.8s ease-out forwards;
+    }
+
+    @keyframes expand-heart {
+      0% { transform: scale(0); opacity: 0.8; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* Corazones flotando desde arriba */
+    .heart-fall {
+      position: absolute;
+      color: #e91e63;
+      font-size: 1.8rem;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1999;
+      animation: fall-heart linear infinite;
+    }
+
+    @keyframes fall-heart {
+      to { transform: translateY(105vh); }
+    }
+
+    /* Lluvia de palabras */
+    .word-rain {
+      position: absolute;
+      top: -30px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: rgba(233, 30, 99, 0.9);
+      pointer-events: none;
+      z-index: 1;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+      animation: fall-word linear forwards;
+      opacity: 0.8;
+    }
+
+    @keyframes fall-word {
+      to { transform: translateY(110vh) rotate(20deg); }
+    }
+
+    /* ===== CARTA ANIMADA ===== */
+    #letter-screen {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 240, 245, 0.95);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .dark #letter-screen {
+      background: rgba(20, 20, 40, 0.95);
+    }
+
+    .letter-card {
+      width: 85%;
+      max-width: 680px;
+      height: 85%;
+      background: white;
+      border-radius: 25px;
+      padding: 35px;
+      position: relative;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      border: 1px solid rgba(233, 30, 99, 0.1);
+    }
+
+    .dark .letter-card {
+      background: #222436;
+      color: #fff;
+      border: 1px solid rgba(233, 30, 99, 0.3);
+    }
+
+    .letter-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #555;
+      line-height: 1.9;
+      text-align: justify;
+      white-space: pre-line;
+    }
+
+    .dark .letter-text {
+      color: #ddd;
+    }
+
+    .close-letter {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #e91e63;
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .close-letter:hover {
+      transform: scale(1.1);
+      background: #d81b60;
+    }
+
+    /* Créditos abajo */
+    .footer-credits {
+      position: fixed;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      font-style: italic;
+      z-index: 10;
+    }
+
+    .dark .footer-credits {
+      color: #aaa;
+    }
+
+    .footer-credits a {
+      color: #e91e63;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body style="overflow: hidden; position: fixed; width: 100%; height: 100%; background: radial-gradient(circle, #200020 0%, #000000 100%);">
-    <h1 id="romantic-title">➪𝐁𝐞𝐫𝐌𝐚𝐭_𝐌𝐨𝐝𝐬𖤍</h1>
-    <button id="toggle-fullscreen" class="text-white btn-fullscreen-toggle" style="position: absolute; top: 15px; left: 15px; z-index: 999;">
-        <i id="fullscreen-icon" class="text-white fa-solid fa-expand"></i>
-    </button>
-        <div class="music-control">
-    <button class="music-btn" id="musicBtn" aria-label="Toggle music">
-      <svg id="playIcon" viewBox="0 0 24 24">
-        <path d="M8 5v14l11-7z"/>
-      </svg>
-      <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
-        <path d="M6 19h4V5H6zm8-14v14h4V5z"/>
-      </svg>
-    </button>
-    <div class="volume-control" id="volumeControl">
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" aria-label="Volume control">
+<body>
+
+  <!-- Pantalla de inicio -->
+  <div id="start-screen">
+    <h2 id="start-title">🎁 Una Sorpresa Especial</h2>
+    <div id="countdown">5</div>
+    <p id="instruction-start">Toca para continuar...</p>
+    <button class="btn-personalizar" onclick="openWhatsApp()">💬 Personaliza</button>
+    <div class="start-footer">
+      by <strong>AnthZz Berrocal BerMat_Mods</strong><br>
+      <a href="#" onclick="openWhatsApp(); return false;">WhatsApp: 930569195</a>
     </div>
   </div>
-  <audio id="backgroundMusic" loop preload="auto">
-    <source src="https://dedicapag.com/es/PagMemoriCorazon/musica.mp3" type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-  </audio>
-        <script>
-        window.dataMemoryHeartLoveLoom = {"template":"birthday-v2","data":{"title":"Te Amo much\u00edsimo mi reina ","messages":["Te amo much\u00edsimo mi amor ","Eres muy importante para m\u00ed","T\u00fa eres mi todo","Gracias por los momentos maravillosos","Gracias por estar al lado de m\u00ed","Es la persona que m\u00e1s amo"],"images":["https:\/\/dedicapag.com\/es\/PagMemoriCorazon\/uploads\/68c1da583cab4_descarga.jpeg","https:\/\/dedicapag.com\/es\/PagMemoriCorazon\/uploads\/68c1da583cfe0_1742316301125-2.jpg","https:\/\/dedicapag.com\/es\/PagMemoriCorazon\/uploads\/68c1da583d3bd_Screenshot-20250810-134752.jpg","https:\/\/dedicapag.com\/es\/PagMemoriCorazon\/uploads\/68c1da583d5ba_Screenshot-20250427-213138.jpg"],"heartColor":"#ff00ff"}};
-    </script>
-    <script type="module" src="https://dedicapag.com/es/PagMemoriCorazon/assets/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullscreenManager = {
-                toggleBtn: document.getElementById('toggle-fullscreen'),
-                iconElement: document.getElementById('fullscreen-icon'),
-                isFullscreen: function() {
-                    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-                },
-                updateIcon: function() {
-                    if (!this.iconElement) return;
-                    if (this.isFullscreen()) {
-                        this.iconElement.classList.remove('fa-expand');
-                        this.iconElement.classList.add('fa-compress');
-                    } else {
-                        this.iconElement.classList.remove('fa-compress');
-                        this.iconElement.classList.add('fa-expand');
-                    }
-                },
-                toggle: function() {
-                    if (!this.isFullscreen()) {
-                        const element = document.documentElement;
-                        if (element.requestFullscreen) {
-                            element.requestFullscreen();
-                        } else if (element.mozRequestFullScreen) {
-                            element.mozRequestFullScreen();
-                        } else if (element.webkitRequestFullscreen) {
-                            element.webkitRequestFullscreen();
-                        } else if (element.msRequestFullscreen) {
-                            element.msRequestFullscreen();
-                        }
-                    } else {
-                        if (document.exitFullscreen) {
-                            document.exitFullscreen();
-                        } else if (document.mozCancelFullScreen) {
-                            document.mozCancelFullScreen();
-                        } else if (document.webkitExitFullscreen) {
-                            document.webkitExitFullscreen();
-                        } else if (document.msExitFullscreen) {
-                            document.msExitFullscreen();
-                        }
-                    }
-                },
-                init: function() {
-                    if (this.toggleBtn) {
-                        this.toggleBtn.addEventListener('click', () => this.toggle());
-                        document.addEventListener('fullscreenchange', () => this.updateIcon());
-                        document.addEventListener('webkitfullscreenchange', () => this.updateIcon());
-                        document.addEventListener('mozfullscreenchange', () => this.updateIcon());
-                        document.addEventListener('MSFullscreenChange', () => this.updateIcon());
-                    }
-                }
-            };
-            fullscreenManager.init();
-        });
-                function setupMusicControls() {
-      const music = document.getElementById("backgroundMusic");
-      const musicBtn = document.getElementById("musicBtn");
-      const playIcon = document.getElementById("playIcon");
-      const pauseIcon = document.getElementById("pauseIcon");
-      const volumeSlider = document.getElementById("volumeSlider");
-      const volumeControl = document.getElementById("volumeControl");
 
-      if (!music || !musicBtn || !volumeSlider || !volumeControl) {
-        console.error('Music or control elements not found');
-        return;
-      }
+  <!-- Menú hamburguesa -->
+  <div class="menu-btn" id="menuBtn">
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </div>
 
-      music.volume = volumeSlider.value;
+  <div class="menu" id="menu">
+    <div class="menu-item" onclick="openWhatsApp()">
+      <i class="fab fa-whatsapp"></i> Contáctame
+    </div>
+    <div class="menu-item" onclick="toggleDarkMode()">
+      <i class="fas fa-moon"></i> <span id="themeText">Modo Oscuro</span>
+    </div>
+    <div class="menu-item">
+      <i class="fas fa-user"></i> Creado por AnthZz
+    </div>
+  </div>
 
-      music.load();
-      music.currentTime = 0;
-      music.play().then(() => {
-        console.log('Autoplay successful at:', music.currentTime);
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-      }).catch(error => {
-        console.warn('Autoplay blocked:', error.message);
-      });
+  <!-- Elementos flotantes globales -->
+  <div id="hearts-container"></div>
+  <div id="word-rain"></div>
+  <div id="balloons"></div>
 
-      function toggleMusic() {
-        if (music.paused) {
-          music.play().then(() => {
-            console.log('Music playing at:', music.currentTime);
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = 'block';
-          }).catch(error => {
-            console.error('Error playing audio:', error.message);
-          });
-        } else {
-          music.pause();
-          console.log('Music paused at:', music.currentTime);
-          playIcon.style.display = 'block';
-          pauseIcon.style.display = 'none';
-        }
-      }
+  <!-- Tarjeta principal -->
+  <div id="card">
+    <h1>🎉 ¡Feliz Cumpleaños!</h1>
+    <p class="subtitle">Un día como hoy nació mi persona favorita</p>
+    <p class="instruction-card">👉 Toca un globo</p>
+    <div class="message-container" id="message"></div>
+    
+    <div class="gif-container">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUybGhvdHI5bjFlajFuYzFxbGhmYTdnc3FsdHpqNG13a3BocTV2eXVpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PEFmj0ePFm4iPKHFL5/giphy.gif" alt="Celebración">
+    </div>
 
-      musicBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMusic();
-        if (!volumeControl.classList.contains('visible')) {
-          volumeControl.classList.add('visible');
-          clearTimeout(hideVolumeTimeout);
-          hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
-        } else {
-          volumeControl.classList.remove('visible');
-        }
-      });
+    <button class="btn-read-letter" onclick="openLetter()">📄 Leer Carta</button>
+    <div class="cake" id="cake">🎂</div>
+  </div>
 
-      let hideVolumeTimeout = null;
-      volumeSlider.addEventListener('input', (e) => {
-        music.volume = e.target.value;
-        console.log('Volume set to:', music.volume);
-        clearTimeout(hideVolumeTimeout);
-        volumeControl.classList.add('visible');
-      });
+  <!-- Carta -->
+  <div id="letter-screen">
+    <div class="letter-card">
+      <button class="close-letter" onclick="closeLetter()">✕</button>
+      <div class="letter-text" id="letter-text"></div>
+    </div>
+  </div>
 
-      volumeSlider.addEventListener('change', () => {
-        hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
-      });
+  <!-- Contenedores internos -->
+  <div id="hearts-in-letter"></div>
+  <div id="words-in-letter"></div>
 
-      volumeControl.addEventListener('mouseenter', () => clearTimeout(hideVolumeTimeout));
-      volumeControl.addEventListener('mouseleave', () => {
-        hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
-      });
+  <!-- Créditos -->
+  <div class="footer-credits">
+    by <strong>AnthZz Berrocal BerMat_Mods</strong> | <a href="#" onclick="openWhatsApp(); return false;">Haz tu pedido</a>
+  </div>
 
-      volumeSlider.addEventListener('touchstart', (e) => {
-        e.stopPropagation();
-        clearTimeout(hideVolumeTimeout);
-      });
-      volumeSlider.addEventListener('touchend', () => {
-        hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
-      });
+  <script>
+    // === Variables ===
+    const startScreen = document.getElementById('start-screen');
+    const countdown = document.getElementById('countdown');
+    let count = 5;
 
-      document.addEventListener('click', (e) => {
-        if (!volumeControl.contains(e.target) && !musicBtn.contains(e.target)) {
-          volumeControl.classList.remove('visible');
-          clearTimeout(hideVolumeTimeout);
-        }
-      });
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    const card = document.getElementById('card');
+    const letterScreen = document.getElementById('letter-screen');
+    const letterText = document.getElementById('letter-text');
 
-      music.addEventListener('loadeddata', () => console.log('Audio data loaded'));
-      music.addEventListener('error', (e) => console.error('Audio error:', e.message));
-      music.addEventListener('play', () => console.log('Music play event'));
-      music.addEventListener('pause', () => console.log('Music pause event'));
+    const heartsContainer = document.getElementById('hearts-container');
+    const wordRainContainer = document.getElementById('word-rain');
+    const balloonsContainer = document.getElementById('balloons');
+
+    const heartsInLetter = document.getElementById('hearts-in-letter') || createEl('hearts-in-letter');
+    const wordsInLetter = document.getElementById('words-in-letter') || createEl('words-in-letter');
+
+    function createEl(id) {
+      const el = document.createElement('div');
+      el.id = id;
+      document.body.appendChild(el);
+      return el;
     }
 
-    // Initialize music controls
-    setupMusicControls();
-                
-    </script>
+    // === Toque → Explosión de corazones ===
+    document.body.addEventListener('click', (e) => {
+      for (let i = 0; i < 12; i++) {
+        const angle = (i / 12) * 2 * Math.PI;
+        const x = e.clientX + Math.cos(angle) * 80;
+        const y = e.clientY + Math.sin(angle) * 80;
+
+        const heart = document.createElement('div');
+        heart.className = 'heart-explosion';
+        heart.innerHTML = '❤️';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 800);
+      }
+    });
+
+    // === Inicio: cuenta regresiva ===
+    startScreen.addEventListener('click', () => {
+      if (count > 1) {
+        count--;
+        countdown.textContent = count;
+      } else {
+        startScreen.style.opacity = 0;
+        setTimeout(() => {
+          startScreen.style.display = 'none';
+          showCard();
+        }, 600);
+      }
+    });
+
+    // === Mostrar tarjeta ===
+    function showCard() {
+      card.style.display = 'block';
+      createBalloons();
+      startFallingHearts();
+      startWordRain();
+      typeWriter();
+    }
+
+    // === Globos ===
+    function createBalloons() {
+      for (let i = 0; i < 15; i++) {
+        const balloon = document.createElement('div');
+        balloon.classList.add('balloon');
+        balloon.style.left = Math.random() * 80 + 10 + 'vw';
+        balloon.style.top = Math.random() * 80 + 20 + 'vh';
+        balloon.style.animationDuration = (15 + Math.random() * 15) + 's';
+
+        const msg = ["💖 Eres especial", "✨ Brilla siempre", "🎉 Hoy es tu día", "❤️ Te AMO", "🌟 Eres increíble"][Math.floor(Math.random() * 5)];
+        balloon.dataset.message = msg;
+
+        balloon.addEventListener('click', function(e) {
+          const msgDiv = document.createElement('div');
+          msgDiv.classList.add('floating-msg');
+          msgDiv.textContent = balloon.dataset.message;
+          msgDiv.style.left = (e.clientX - 60) + 'px';
+          msgDiv.style.top = e.clientY + 'px';
+          document.body.appendChild(msgDiv);
+          setTimeout(() => msgDiv.remove(), 3500);
+          balloon.remove();
+        });
+        balloonsContainer.appendChild(balloon);
+      }
+    }
+
+    // === Corazones cayendo desde arriba ===
+    function startFallingHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-fall';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+      }, 700);
+    }
+
+    // === Lluvia de palabras ===
+    function startWordRain() {
+      setInterval(() => {
+        const word = document.createElement('div');
+        word.className = 'word-rain';
+        word.textContent = ['Amor', 'Alegría', 'Magia', 'Brillo', 'Sonrisa', 'Felicidad'][Math.floor(Math.random() * 6)];
+        word.style.left = Math.random() * 100 + 'vw';
+        word.style.animationDuration = (6 + Math.random() * 8) + 's';
+        wordRainContainer.appendChild(word);
+        setTimeout(() => word.remove(), 10000);
+      }, 800);
+    }
+
+    // === Texto que se escribe solo ===
+    const text = "Hoy es un día muy especial porque tú estás aquí. Que este nuevo año de vida esté lleno de amor, alegría, salud y momentos inolvidables. Siempre crece, siempre sueña, siempre ama.";
+    let index = 0;
+    function typeWriter() {
+      if (index < text.length) {
+        document.getElementById('message').textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 40);
+      } else {
+        setTimeout(() => {
+          document.getElementById('cake').style.fontSize = '5rem';
+          document.getElementById('cake').style.opacity = 1;
+        }, 1000);
+      }
+    }
+
+    // === Carta larga y universal ===
+    const longLetter = `¡Feliz Cumpleaños! 🎉\n\nHoy es un día mágico ✨ porque el universo celebra tu existencia. Eres una persona única 💖, llena de luz, bondad y fuerza interior. Que este nuevo año de vida te traiga infinitas razones para sonreír 😊, amar ❤️ y vivir cada momento con pasión 🔥.\n\nQue nunca te falte salud 💪, que el amor te acompañe siempre 💌, que los sueños se hagan realidad ✨ y que encuentres motivos para seguir adelante incluso en los días difíciles 🌈.\n\nEres capaz de grandes cosas 🚀, mereces lo mejor 🏆 y el mundo es más hermoso contigo 🌍.\n\nDisfruta cada instante, celebra tu ser, ríe fuerte, abraza fuerte, vive pleno 💃🕺.\n\nTe deseo lo mejor en este nuevo ciclo: paz, éxito, alegría y muchísimo amor.\n\nCon cariño y magia ✨,\FELIZ CUMPLEAÑOS🎁`;
+
+    function openLetter() {
+      letterScreen.style.display = 'flex';
+      startHeartsInLetter();
+      startWordsInLetter();
+      typeLetterText();
+    }
+
+    function closeLetter() {
+      letterScreen.style.display = 'none';
+      heartsInLetter.innerHTML = '';
+      wordsInLetter.innerHTML = '';
+    }
+
+    // === Corazones en carta ===
+    function startHeartsInLetter() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-fall';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 80 + 'vh';
+        heart.style.animationDuration = (8 + Math.random() * 10) + 's';
+        heartsInLetter.appendChild(heart);
+        setTimeout(() => heart.remove(), 15000);
+      }, 600);
+    }
+
+    // === Palabras en carta ===
+    function startWordsInLetter() {
+      setInterval(() => {
+        const word = document.createElement('div');
+        word.className = 'word-rain';
+        word.textContent = ['Amor', 'Alegría', 'Magia', 'Brillo', 'Sonrisa'][Math.floor(Math.random() * 5)];
+        word.style.left = Math.random() * 100 + 'vw';
+        word.style.animationDuration = (6 + Math.random() * 8) + 's';
+        wordsInLetter.appendChild(word);
+        setTimeout(() => word.remove(), 10000);
+      }, 900);
+    }
+
+    // === Carta que se escribe sola ===
+    let letterIndex = 0;
+    function typeLetterText() {
+      letterText.textContent = '';
+      const timer = setInterval(() => {
+        if (letterIndex < longLetter.length) {
+          letterText.textContent += longLetter.charAt(letterIndex);
+          letterIndex++;
+        } else {
+          clearInterval(timer);
+        }
+      }, 30);
+    }
+
+    // === Menú funcional ===
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      menu.classList.toggle('active');
+    });
+
+    function openWhatsApp() {
+      window.open('https://wa.me/51930569195', '_blank');
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      document.getElementById('themeText').textContent = document.body.classList.contains('dark') ? 'Modo Claro' : 'Modo Oscuro';
+    }
+  </script>
 </body>
 </html>
