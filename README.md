@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Una Sorpresa Especial</title>
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@600;700&family=Poppins:wght@500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/3b3b5f9a1a.js" crossorigin="anonymous"></script>
+
   <style>
     * {
       margin: 0;
@@ -408,7 +411,7 @@
       100% { transform: translateY(-200px); opacity: 0; }
     }
 
-    /* ===== EXPLOSIÓN DE CORAZONES AL TOCAR ===== */
+    /* Explosión de corazones al tocar */
     .heart-explosion {
       position: absolute;
       font-size: 2rem;
@@ -441,9 +444,10 @@
     .word-rain {
       position: absolute;
       top: -30px;
-      font-family: 'Dancing Script', cursive;
+      font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       color: rgba(233, 30, 99, 0.9);
+      font-weight: bold;
       pointer-events: none;
       z-index: 1;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
@@ -455,7 +459,7 @@
       to { transform: translateY(110vh) rotate(20deg); }
     }
 
-    /* ===== CARTA ANIMADA ===== */
+    /* Carta animada */
     #letter-screen {
       display: none;
       position: fixed;
@@ -678,15 +682,15 @@
     // === Mostrar tarjeta ===
     function showCard() {
       card.style.display = 'block';
-      createBalloons();
+      createBalloons(25); // 🔥 Más globos (25 en vez de 15)
       startFallingHearts();
       startWordRain();
       typeWriter();
     }
 
-    // === Globos ===
-    function createBalloons() {
-      for (let i = 0; i < 15; i++) {
+    // === Globos (más globos) ===
+    function createBalloons(count) {
+      for (let i = 0; i < count; i++) {
         const balloon = document.createElement('div');
         balloon.classList.add('balloon');
         balloon.style.left = Math.random() * 80 + 10 + 'vw';
@@ -752,8 +756,8 @@
       }
     }
 
-    // === Carta larga y universal ===
-    const longLetter = `¡Feliz Cumpleaños! 🎉\n\nHoy es un día mágico ✨ porque el universo celebra tu existencia. Eres una persona única 💖, llena de luz, bondad y fuerza interior. Que este nuevo año de vida te traiga infinitas razones para sonreír 😊, amar ❤️ y vivir cada momento con pasión 🔥.\n\nQue nunca te falte salud 💪, que el amor te acompañe siempre 💌, que los sueños se hagan realidad ✨ y que encuentres motivos para seguir adelante incluso en los días difíciles 🌈.\n\nEres capaz de grandes cosas 🚀, mereces lo mejor 🏆 y el mundo es más hermoso contigo 🌍.\n\nDisfruta cada instante, celebra tu ser, ríe fuerte, abraza fuerte, vive pleno 💃🕺.\n\nTe deseo lo mejor en este nuevo ciclo: paz, éxito, alegría y muchísimo amor.\n\nCon cariño y magia ✨,\FELIZ CUMPLEAÑOS🎁`;
+    // === Carta con tu texto exacto ===
+    const longLetter = `¡Feliz Cumpleaños! 🎉\n\nHoy es un día mágico ✨ porque el universo celebra tu existencia. Eres una persona única 💖, llena de luz, bondad y fuerza interior. Que este nuevo año de vida te traiga infinitas razones para sonreír 😊, amar ❤️ y vivir cada momento con pasión 🔥.\n\nQue nunca te falte salud 💪, que el amor te acompañe siempre 💞, que los sueños se hagan realidad ✨ y que encuentres motivos para seguir adelante incluso en los días difíciles 🌈.\n\nEres capaz de grandes cosas 🚀, mereces lo mejor 🏆 y el mundo es más hermoso contigo 🌍.\n\nDisfruta cada instante, celebra tu ser, ríe fuerte, abraza fuerte, vive pleno 💃🕺.\n\nTe deseo lo mejor en este nuevo ciclo: paz, éxito, alegría y muchísimo amor.\n\nCon cariño y magia ✨,\n\nFELIZ CUMPLEAÑOS 🎁`;
 
     function openLetter() {
       letterScreen.style.display = 'flex';
@@ -782,14 +786,17 @@
       }, 600);
     }
 
-    // === Palabras en carta ===
+    // === Palabras en carta (con fuente Playfair Display, negrita, color rosa) ===
     function startWordsInLetter() {
       setInterval(() => {
         const word = document.createElement('div');
         word.className = 'word-rain';
-        word.textContent = ['Amor', 'Alegría', 'Magia', 'Brillo', 'Sonrisa'][Math.floor(Math.random() * 5)];
+        word.textContent = ['Amor', 'Alegría', 'Magia', 'Brillo', 'Sonrisa', 'Felicidad'][Math.floor(Math.random() * 6)];
         word.style.left = Math.random() * 100 + 'vw';
         word.style.animationDuration = (6 + Math.random() * 8) + 's';
+        word.style.fontWeight = 'bold';
+        word.style.color = '#e91e63'; // Rosa vibrante
+        word.style.textShadow = '1px 1px 5px rgba(0,0,0,0.3)';
         wordsInLetter.appendChild(word);
         setTimeout(() => word.remove(), 10000);
       }, 900);
